@@ -1,15 +1,9 @@
-<?php 
-
-interface DataAccess{
-
-   
-    public function getAllItems();
-    public function insert($item);
-    public function delete($item);
-
-
-
+<?php
+interface DataAccess {
+    public function findById($id);
+    public function findAll();
+    public function create($entity);
+    public function update($entity);
+    public function delete($id);
 }
-
-
 ?>

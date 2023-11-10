@@ -2,16 +2,20 @@
 require("./DataAccess.php");
 
 class InventoryDAO implements DataAccess{
-    public function getAllItems(){
+    public function findById($id){
 
     }
-
-    public function insert($item){
+    public function findAll(){
 
     }
+    public function create($entity){
 
-    public function delete($item){
+    }
+    public function update($entity){
 
+    }
+    public function delete($id){
+        
     }
 
 }
