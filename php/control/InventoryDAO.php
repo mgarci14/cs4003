@@ -31,6 +31,7 @@ class InventoryDAO implements DataAccess {
 				$inventoryItems[] = $inventory;
 			}
 
+			$pdo = null;
 			return $inventoryItems;
             
 		} catch (PDOException $e) {
@@ -53,6 +54,7 @@ class InventoryDAO implements DataAccess {
 				$invItems[] = $inventory;
 			}
 
+			$pdo = null;
 			return $invItems;
 
 		} catch (PDOException $e) {
@@ -61,18 +63,42 @@ class InventoryDAO implements DataAccess {
 
     }
     
-    public function create($entity) {
+	public function create($entity) {
 
-    }
-    
+		try {
+			$query = "INSERT INTO inventory (name, description, price, qty) VALUES (:name, :description, :price, :qty)";
+			$stmt = $this->pdo->prepare($query);
+	
+			$stmt->bindValue(':name', $entity->getName());
+			$stmt->bindValue(':description', $entity->getDescription());
+			$stmt->bindValue(':price', $entity->getPrice());
+			$stmt->bindValue(':qty', $entity->getQty());
+	
+			$stmt->execute();
+	
+			$pdo = null;
+		} catch (PDOException $e) {
+			echo "Database error: " . $e->getMessage();
+		}
+	}
+	
 	public function update($entity) {
 
     }
     
-    public function delete($id) {
-        
-    }
-
+	public function delete($id) {
+		try {
+			$query = "DELETE FROM inventory WHERE inv_id = :id";
+			$stmt = $this->pdo->prepare($query);
+			$stmt->bindParam(':id', $id, PDO::PARAM_INT);
+			$stmt->execute();
+	
+			$pdo = null;
+		} catch (PDOException $e) {
+			echo "Database error: " . $e->getMessage();
+		}
+	}
+	
 }
 
 ?>
